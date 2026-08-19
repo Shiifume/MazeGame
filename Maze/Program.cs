@@ -1,4 +1,5 @@
 ﻿using Maze;
+using Maze.MazeCreation;
 
 internal class Program
 {
@@ -11,5 +12,6 @@ internal class Program
         MazeControler controler = new() { Vue = vue, Model = model };
 
         controler.Start();
+
     }
 }
