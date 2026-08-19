@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+//using Maze.MazeCreation.MazeContent;
 
 namespace Maze
 {
@@ -8,7 +9,24 @@ namespace Maze
     {
         public void Display(MazeModel model, string message)
         {
-            Console.WriteLine($"{model.Name} {message}");
+            int previousLine = 0, previousColumn = 0;
+            
+            foreach(var elem in model)
+            {
+                while(elem.Key.Line > previousLine)
+                {
+                    Console.Write('\n');
+                    previousLine++;
+                    previousColumn = 0;
+                }
+                while(elem.Key.Col > previousColumn)
+                {
+                    Console.Write("  ");
+                    previousColumn++;
+                }
+                Console.Write($"{elem.Value.Symbol} ");
+                previousColumn++;
+            }
         }
     }
 }

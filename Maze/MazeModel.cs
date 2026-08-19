@@ -17,6 +17,7 @@ namespace Maze
         public MazeModel(string name)
         {
             Name = name;
+            _Grid = new();
         }
 
         /*

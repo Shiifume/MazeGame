@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -8,11 +9,18 @@ namespace Maze.MazeCreation
     internal class MazeFileReader
     {
         private IMazeBuilder _builder;
+
+        private delegate void ElementRead(int row, int col);
         private Dictionary<char, ElementRead> elementsReader;
         
         public MazeFileReader(IMazeBuilder builder)
         {
             _builder = builder;
+            elementsReader = new Dictionary<char, ElementRead> 
+            {
+                { '*', _builder.AddWall },
+                { '.', _builder.AddRoom }
+            };
         }
 
         public void Read(string mazeName)
@@ -39,10 +47,11 @@ namespace Maze.MazeCreation
                     }
                     else if(currentCharacter != '\r')
                     {
-                        if (currentCharacter != ' ')
+                        if(elementsReader.TryGetValue(currentCharacter, out ElementRead? builderCommand))
                         {
-                            Console.WriteLine($"char : {(char)readerCharacter}, row : {row}, col : {col} ");
+                            builderCommand(row, col);
                         }
+
                         col++;    
                     }
 

@@ -15,7 +15,7 @@ namespace Maze.MazeCreation
             fileReader.Read(name);
 
             
-            return builder.build();
+            return builder.Build();
         }
     }
 }
