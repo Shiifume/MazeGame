@@ -1,7 +1,15 @@
-﻿internal class Program
+﻿using Maze;
+
+internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        MazeFactory factory = new();
+        MazeModel model = factory.CreateMaze("test");
+        MazeVue vue = new();
+
+        MazeControler controler = new() { Vue = vue, Model = model };
+
+        controler.Start();
     }
 }
