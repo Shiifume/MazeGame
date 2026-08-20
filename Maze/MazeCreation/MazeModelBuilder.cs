@@ -20,6 +20,12 @@ namespace Maze.MazeCreation
             model[line, col] = new Wall();
         }
 
+        public void AddCharacter(int line, int col)
+        {
+            model[line, col] = new Room(new Personnage());
+            ((Personnage)model[line, col].Content).Position = new MazePosition(line, col);
+        }
+
         public void Finish()
         { }
 

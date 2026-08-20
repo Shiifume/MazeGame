@@ -12,6 +12,8 @@ namespace Maze.MazeCreation
 
         public void AddWall(int line, int col);
 
+        public void AddCharacter(int line, int col);
+
         public void Finish();
     }
 }

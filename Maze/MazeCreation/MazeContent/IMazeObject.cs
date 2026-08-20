@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Maze.MazeCreation.MazeContent
 {
-    internal interface IMazeElement : ISymbol
+    internal interface IMazeObject : ISymbol
     {
-        public IMazeObject? Content { get; set; }
+
     }
 }

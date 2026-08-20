@@ -19,7 +19,8 @@ namespace Maze.MazeCreation
             elementsReader = new Dictionary<char, ElementRead> 
             {
                 { '*', _builder.AddWall },
-                { '.', _builder.AddRoom }
+                { '.', _builder.AddRoom },
+                { 'O', _builder.AddCharacter }
             };
         }
 
