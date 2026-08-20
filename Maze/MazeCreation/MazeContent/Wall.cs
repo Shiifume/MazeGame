@@ -19,5 +19,13 @@ namespace Maze.MazeCreation.MazeContent
                 throw new MazeException("Un mur ne contient pas d'objet !");
             }
         }
+
+        /*
+         * METHODS
+         */
+        public void Visit(Personnage personnage)
+        {
+            throw new MazeException("Les personnages ne peuvent pas traverser les murs.");
+        }
     }
 }

@@ -9,7 +9,10 @@ namespace Maze
     {
         public void Display(MazeModel model, string message)
         {
+
             int previousLine = 0, previousColumn = 0;
+
+            Console.Clear();
             
             foreach(var elem in model)
             {
@@ -27,6 +30,8 @@ namespace Maze
                 Console.Write($"{elem.Value.Symbol} ");
                 previousColumn++;
             }
+            Console.WriteLine();
+            Console.WriteLine(message);
         }
     }
 }

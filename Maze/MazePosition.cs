@@ -4,6 +4,15 @@ using System.Text;
 
 namespace Maze
 {
+    public enum Direction
+    {
+        NORD,
+        EST,
+        SUD,
+        OUEST
+    }
+
+
     internal class MazePosition : IComparable<MazePosition>
     {
         public int Line { private init; get; }
@@ -15,6 +24,41 @@ namespace Maze
             Line = line;
             Col = col;
         }
+
+        /*
+         * METHODS 
+         */
+
+        public MazePosition this[Direction direction]
+        {
+            get
+            {
+                MazePosition nextPos; 
+
+                switch(direction)
+                {
+                    case Direction.NORD:
+                        nextPos = new(Line-1, Col);
+                        break;
+                    case Direction.EST:
+                        nextPos = new(Line, Col + 1);
+                        break;
+                    case Direction.SUD:
+                        nextPos = new(Line + 1, Col);
+                        break;
+                    case Direction.OUEST:
+                        nextPos = new(Line, Col - 1);
+                        break;
+                    default:
+                        nextPos = this;
+                        break;
+                }
+
+                return nextPos;
+            }
+        }
+
+
 
         /*
          * COMPARISON OVERRIDES

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Maze.MazeCreation.MazeContent
 {
-    internal interface IMazeObject : ISymbol, IVisitablePersonnage
+    internal interface IVisitablePersonnage
     {
-
+        public void Visit(Personnage personnage);
     }
 }

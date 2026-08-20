@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Maze.MazeCreation.MazeContent
 {
-    internal interface IMazeElement : ISymbol
+    internal interface IMazeElement : ISymbol, IVisitablePersonnage
     {
         public IMazeObject? Content { get; set; }
     }

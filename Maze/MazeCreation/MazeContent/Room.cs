@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maze.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -29,6 +30,15 @@ namespace Maze.MazeCreation.MazeContent
         public Room(IMazeObject content)
         {
             this.Content = content; 
+        }
+
+        /*
+         * METHODS
+         */
+
+        public void Visit(Personnage personnage)
+        {
+            Content = personnage;
         }
     }
 }
