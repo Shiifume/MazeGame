@@ -32,6 +32,12 @@ namespace Maze
             }
             Console.WriteLine();
             Console.WriteLine(message);
+
+            Console.WriteLine("Inventaire");
+            foreach(var element in model.Personnage.Bag)
+            {
+                Console.Write(element.Symbol);
+            }
         }
     }
 }

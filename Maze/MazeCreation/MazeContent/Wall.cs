@@ -8,17 +8,7 @@ namespace Maze.MazeCreation.MazeContent
     internal class Wall : IMazeElement
     {
         public char Symbol { private init; get; } = '*';
-        public IMazeObject? Content 
-        { 
-            get
-            {
-                return null;
-            }
-            set
-            {
-                throw new MazeException("Un mur ne contient pas d'objet !");
-            }
-        }
+        public IMazeObject? Content { get => null; set => throw new MazeException("Un mur ne contient pas d'objet !"); } 
 
         /*
          * METHODS

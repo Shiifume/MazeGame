@@ -38,7 +38,18 @@ namespace Maze.MazeCreation.MazeContent
 
         public void Visit(Personnage personnage)
         {
+            if(Content is not null)
+            {
+                try
+                {
+                    Content.Visit(personnage);
+                }
+                catch (Exception e)
+                { }
+            }
+            
             Content = personnage;
+
         }
     }
 }

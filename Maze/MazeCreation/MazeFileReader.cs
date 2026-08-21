@@ -10,7 +10,7 @@ namespace Maze.MazeCreation
     {
         private IMazeBuilder _builder;
 
-        private delegate void ElementRead(int row, int col);
+        private delegate void ElementRead(int row, int col, char c);
         private Dictionary<char, ElementRead> elementsReader;
         
         public MazeFileReader(IMazeBuilder builder)
@@ -18,10 +18,16 @@ namespace Maze.MazeCreation
             _builder = builder;
             elementsReader = new Dictionary<char, ElementRead> 
             {
-                { '*', _builder.AddWall },
-                { '.', _builder.AddRoom },
-                { 'O', _builder.AddCharacter }
+                { '*', (row, col, _) => _builder.AddWall(row, col) },
+                { '.', (row, col, _) => _builder.AddRoom(row, col) },
+                { '|', (row, col, _) => _builder.AddDoor(row, col) },
+                { 'f', (row, col, _) => _builder.AddKey(row, col) }
             };
+
+            for(char character = 'A'; character <= 'Z'; character++)
+            {
+                elementsReader.Add(character, (row, col, c) => _builder.AddCharacter(row, col, c));
+            }
         }
 
         public void Read(string mazeName)
@@ -50,7 +56,7 @@ namespace Maze.MazeCreation
                     {
                         if(elementsReader.TryGetValue(currentCharacter, out ElementRead? builderCommand))
                         {
-                            builderCommand(row, col);
+                            builderCommand(row, col, currentCharacter);
                         }
 
                         col++;    
