@@ -40,15 +40,11 @@ namespace Maze.MazeCreation.MazeContent
         {
             if(Content is not null)
             {
-                try
-                {
-                    Content.Visit(personnage);
-                }
-                catch (Exception e)
-                { }
+
+                Content.Visit(personnage);
             }
-            
             Content = personnage;
+
 
         }
     }

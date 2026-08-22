@@ -6,6 +6,6 @@ namespace Maze.MazeCreation.MazeContent
 {
     internal interface IMazeObject : ISymbol, IVisitablePersonnage
     {
-
+        string Name { get; }
     }
 }

@@ -13,6 +13,15 @@ namespace Maze
         private SortedDictionary<MazePosition, IMazeElement> _Grid { set; get; }
         public Personnage Personnage { private set; get; }
 
+        private Dictionary<char, Personnage> _PersonnagesMap { set; get; }
+
+        private List<char> _PersonnagesKey { set; get; }
+
+        private int PersonnageActif { set; get; }
+
+        public IEnumerator<Personnage> ActivePersonnages { get => _PersonnagesKey.Select(character => _PersonnagesMap[character]).GetEnumerator(); }
+
+
         /*
          * CONSTRUCTORS
          */
@@ -20,6 +29,10 @@ namespace Maze
         {
             Name = name;
             _Grid = new();
+            _PersonnagesMap = new();
+            _PersonnagesKey = new();
+            PersonnageActif = 0;
+
         }
 
         /*
@@ -30,8 +43,13 @@ namespace Maze
             set
             {
                 _Grid[new MazePosition(line, col)] = value;
-                if(value.Content is Personnage)
-                    this.Personnage = (Personnage)value.Content;
+                if (value.Content is Personnage)
+                {
+                    if(this.Personnage is null)
+                        this.Personnage = (Personnage)value.Content;
+                    _PersonnagesMap.Add(value.Content.Symbol, (Personnage)value.Content);
+                    _PersonnagesKey.Add(value.Content.Symbol);
+                }
             }
             get 
             {
@@ -64,8 +82,54 @@ namespace Maze
             }
             else
             {
+                if (_Grid.TryGetValue(this.Personnage.Position, out IMazeElement originElement))
+                {
+                    originElement.Content = null;
+                }
+
                 this.Personnage.Position = null;
-                throw new OutOfMazeException("Le personnage est sorti du labyrinthe !");
+
+                if(_PersonnagesKey.Count > 1)
+                {
+                    _PersonnagesKey.Remove(Personnage.Symbol);
+                    ActivatePersonnage();
+                }
+                else
+                {
+                    throw new OutOfMazeException($"Tout le monde est sorti du labyrinthe !");
+                }
+
+            }
+        }
+
+        public void ActivatePersonnage()
+        {
+            if(PersonnageActif < _PersonnagesKey.Count()-1)
+            {
+                PersonnageActif++;
+            }
+            else
+            {
+                PersonnageActif = 0;
+            }
+
+            if(_PersonnagesMap.TryGetValue(_PersonnagesKey[PersonnageActif], out Personnage perso))
+            {
+                Personnage = perso;
+            }
+        }
+
+        public void ActivatePersonnage(char c)
+        {
+
+            char upperC = c.ToString().ToUpper()[0];
+
+            if(_PersonnagesKey.Contains(upperC))
+            {
+                if (_PersonnagesMap.TryGetValue(upperC, out Personnage perso))
+                {
+                    Personnage = perso;
+                }
             }
         }
 
@@ -78,7 +142,6 @@ namespace Maze
         {
             return GetEnumerator();
         }
-
 
 
     }

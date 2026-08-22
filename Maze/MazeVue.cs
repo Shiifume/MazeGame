@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-//using Maze.MazeCreation.MazeContent;
+using Maze.MazeCreation.MazeContent;
 
 namespace Maze
 {
@@ -32,11 +32,24 @@ namespace Maze
             }
             Console.WriteLine();
             Console.WriteLine(message);
+            Console.WriteLine();
 
-            Console.WriteLine("Inventaire");
-            foreach(var element in model.Personnage.Bag)
+            //display of the players in the maze, who the current player is, and their inventory
+            var enumerator = model.ActivePersonnages;
+            string activePerso = "=> ", inactivePerso = "   ", inventory = "";
+
+            while (enumerator.MoveNext())
             {
-                Console.Write(element.Symbol);
+                inventory = "";
+                Personnage item = enumerator.Current;
+                foreach(IMazeObject bagItem in item.Bag)
+                {
+                    if (!inventory.Equals(""))
+                        inventory += ",";
+                    inventory += bagItem.Name;
+                }
+
+                Console.WriteLine($"{(item == model.Personnage ? activePerso : inactivePerso)} {item.Symbol} :{{ {inventory} }}");
             }
         }
     }

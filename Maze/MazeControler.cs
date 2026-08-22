@@ -26,6 +26,9 @@ namespace Maze
                 {
                     switch(key.Key)
                     {
+                        case ConsoleKey.Tab:
+                            Model.ActivatePersonnage();
+                            break;
                         case ConsoleKey.UpArrow:
                             Model.Move(Direction.NORD);
                             break;
@@ -38,12 +41,22 @@ namespace Maze
                         case ConsoleKey.RightArrow:
                             Model.Move(Direction.EST);
                             break;
+                        default:
+                            if (char.IsLetter(key.KeyChar))
+                            {
+                                Model.ActivatePersonnage(key.KeyChar);
+                            }
+                            break;
                     }
                 }
                 catch (OutOfMazeException e)
                 {
                     errorMessage = e.Message;
                     running = false;
+                }
+                catch (MazeCharacterCollisionException e)
+                {
+                    errorMessage = e.Message;
                 }
                 catch (MazeException e)
                 {
