@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using Maze.Exceptions;
 
+
 namespace Maze.MazeCreation.MazeContent.Mobs_Characters
 {
     internal class Personnage : Combattants
     {
 
-        public ICollection<IMazeObject> Bag;
+        public List<IMazeObject> Bag;
+
+        public IMazeObject? ActiveObject { get; set; }
 
         public Personnage(char symbol)
         {
             Symbol = symbol;
             Name = symbol.ToString();
-            Bag = new HashSet<IMazeObject>();
+            Bag = new List<IMazeObject>();
+            ActiveObject = null;
         }
 
         public override void Visit(Personnage personnage)
@@ -27,6 +31,26 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
             throw new MazeCharacterCollisionException($"Inventaire transféré de {personnage.Symbol} to {this.Symbol}");
         }
 
+        public void ActivateBag()
+        {
+            ActiveObject = Bag[0];
+        }
 
+        public void DeactivateBag()
+        {
+            ActiveObject = null;
+        }
+
+        public void NextObject()
+        {
+            int index = Bag.IndexOf(ActiveObject);
+            ActiveObject = index < Bag.Count - 1 ? Bag[index + 1] : Bag[0];
+        }
+
+        public void PreviousObject()
+        {
+            int index = Bag.IndexOf(ActiveObject);
+            ActiveObject = index > 0 ? Bag[index - 1] : Bag[Bag.Count - 1];
+        }
     }
 }

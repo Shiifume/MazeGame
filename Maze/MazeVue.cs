@@ -51,7 +51,7 @@ namespace Maze
                 {
                     if (!inventory.Equals(""))
                         inventory += ",";
-                    inventory += bagItem.Name;
+                    inventory += bagItem == item.ActiveObject ? $"->{bagItem.Name}<-" : bagItem.Name;
                 }
 
                 Console.WriteLine($"{(item == model.Personnage ? activePerso : inactivePerso)} {item.Symbol} :{{ vie: {item.Life}, force: {item.Strength}, défense: {item.Defense}, inventaire [{inventory}] }}");

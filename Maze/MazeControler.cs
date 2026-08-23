@@ -1,7 +1,10 @@
 ﻿using Maze.Exceptions;
+using Maze.MazeCreation.MazeContent.Mobs_Characters;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using Maze.MazeCreation.MazeContent.Objects;
 
 namespace Maze
 {
@@ -26,6 +29,10 @@ namespace Maze
                 {
                     switch(key.Key)
                     {
+                        case ConsoleKey.Spacebar:
+                            if(Model.Personnage.Bag.Count() > 0)
+                                ExploreBag();
+                            break;
                         case ConsoleKey.Tab:
                             Model.ActivatePersonnage();
                             break;
@@ -48,6 +55,10 @@ namespace Maze
                             }
                             break;
                     }
+                }
+                catch (UnusableObjectException e)
+                {
+                    errorMessage = e.Message;
                 }
                 catch (OutOfMazeException e)
                 {
@@ -79,6 +90,49 @@ namespace Maze
                 }
                 Vue.Display(Model, errorMessage);
             }
+        }
+
+        public void ExploreBag()
+        {
+            bool running = true;
+
+            Model.Personnage.ActivateBag();
+
+            Vue.Display(Model, "");
+
+            while(running)
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+
+                switch(key.Key)
+                {
+                    case ConsoleKey.Enter:
+                        if (Model.Personnage.ActiveObject is IUsable usableObject)
+                        {
+                            usableObject.Use(Model.Personnage);
+                            Model.Personnage.Bag.Remove(Model.Personnage.ActiveObject);
+                            running = false;
+                        }
+                        else
+                        {
+                            Model.Personnage.DeactivateBag();
+                            throw new UnusableObjectException("Cet objet ne peut pas être consommé.");
+                        }
+                        break;
+                    case ConsoleKey.Escape:
+                        running = false;
+                        break;
+                    case ConsoleKey.LeftArrow:
+                        Model.Personnage.PreviousObject();
+                        break;
+                    case ConsoleKey.RightArrow:
+                        Model.Personnage.NextObject(); 
+                        break;
+                }
+
+                Vue.Display(Model, "");
+            }
+            Model.Personnage.DeactivateBag();
         }
     }
 }
