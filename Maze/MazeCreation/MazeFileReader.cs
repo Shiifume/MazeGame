@@ -22,7 +22,10 @@ namespace Maze.MazeCreation
                 { '*', (row, col, _) => _builder.AddWall(row, col) },
                 { '.', (row, col, _) => _builder.AddRoom(row, col) },
                 { '|', (row, col, _) => _builder.AddDoor(row, col) },
-                { 'f', (row, col, _) => _builder.AddKey(row, col) }
+                { 'f', (row, col, _) => _builder.AddKey(row, col) },
+                { '&', (row, col, _) => _builder.AddHealPotion(row, col)  },
+                { '@', (row, col, _) => _builder.AddStrengthPotion(row, col)  },
+                { '+', (row, col, _) => _builder.AddDefensePotion(row, col)  }
             };
 
             for(char character = 'A'; character <= 'Z'; character++)
@@ -35,12 +38,14 @@ namespace Maze.MazeCreation
                 elementsReader.Add(character, (row, col, c) => _builder.AddFighter(row, col, c));
             }
         }
+        
 
+        /*reads a mazeName.maze file 
+         * initialize model with all elements and components
+         */
         public void Read(string mazeName)
         {
             string filePath = "../../../MazeFiles/" + mazeName + ".maze";
-            
-            //to do : try catch on reader to check if file exists
 
             using (StreamReader lecteur = new StreamReader(filePath))
             {

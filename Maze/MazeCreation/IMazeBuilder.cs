@@ -16,6 +16,10 @@ namespace Maze.MazeCreation
 
         public void DefineFighter(char symbol, int life, int strength, int defense);
 
+        public void AddHealPotion(int line, int col);
+        public void AddStrengthPotion(int line, int col);
+        public void AddDefensePotion(int line, int col);
+
         public void AddDoor(int line, int col);
 
         public void AddKey(int line, int col);

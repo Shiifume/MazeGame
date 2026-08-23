@@ -56,6 +56,18 @@ namespace Maze.MazeCreation
             model[line, col] = new Room(new MazeKey());
         }
 
+        public void AddHealPotion(int line, int col)
+        {
+            model[line, col] = new Room(new HealPotion());
+        }
+        public void AddStrengthPotion(int line, int col)
+        {
+            model[line, col] = new Room(new StrengthPotion());
+        }
+        public void AddDefensePotion(int line, int col)
+        {
+            model[line, col] = new Room(new DefensePotion());
+        }
 
         public void Finish()
         { }

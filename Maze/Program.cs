@@ -1,6 +1,7 @@
 ﻿using Maze;
 using Maze.MazeCreation;
 
+
 internal class Program
 {
     private static void Main(string[] args)

@@ -13,13 +13,9 @@ namespace Maze
         public string Name { private init; get; }
         private SortedDictionary<MazePosition, IMazeElement> _Grid { set; get; }
         public Personnage Personnage { private set; get; }
-
         private Dictionary<char, Personnage> _PersonnagesMap { set; get; }
-
         private List<char> _PersonnagesKey { set; get; }
-
         private int PersonnageActif { set; get; }
-
         public IEnumerator<Personnage> ActivePersonnages { get => _PersonnagesKey.Select(character => _PersonnagesMap[character]).GetEnumerator(); }
 
 
@@ -33,7 +29,6 @@ namespace Maze
             _PersonnagesMap = new();
             _PersonnagesKey = new();
             PersonnageActif = 0;
-
         }
 
         /*
@@ -65,12 +60,12 @@ namespace Maze
         public void Move(Direction direction)
         {
             MazePosition destinationPosition = this.Personnage.Position[direction];
-            if(_Grid.TryGetValue(destinationPosition, out IMazeElement value))
+            if(_Grid.TryGetValue(destinationPosition, out IMazeElement? value))
             {
                 try
                 {
                     value.Visit(this.Personnage);
-                    if (_Grid.TryGetValue(this.Personnage.Position, out IMazeElement originElement))
+                    if (_Grid.TryGetValue(this.Personnage.Position, out IMazeElement? originElement))
                     {
                         originElement.Content = null;
                     }
@@ -88,7 +83,7 @@ namespace Maze
             }
             else
             {
-                if (_Grid.TryGetValue(this.Personnage.Position, out IMazeElement originElement))
+                if (_Grid.TryGetValue(this.Personnage.Position, out IMazeElement? originElement))
                 {
                     originElement.Content = null;
                 }
