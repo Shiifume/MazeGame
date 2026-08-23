@@ -58,6 +58,15 @@ namespace Maze
                 {
                     errorMessage = e.Message;
                 }
+                catch (MazePlayerDeadException e)
+                {
+                    errorMessage = e.Message;
+                    running = false;
+                }
+                catch (MazeMonsterException e)
+                {
+                    errorMessage = e.Message;
+                }
                 catch (MazeException e)
                 {
                     errorMessage = e.Message;

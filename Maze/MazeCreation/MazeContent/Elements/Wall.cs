@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Maze.Exceptions;
+using Maze.MazeCreation.MazeContent.Mobs_Characters;
 
-namespace Maze.MazeCreation.MazeContent
+namespace Maze.MazeCreation.MazeContent.Elements
 {
     internal class Wall : IMazeElement
     {

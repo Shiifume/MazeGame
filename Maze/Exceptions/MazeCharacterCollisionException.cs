@@ -6,7 +6,8 @@ namespace Maze.Exceptions
 {
     internal class MazeCharacterCollisionException : MazeException
     {
-        public MazeCharacterCollisionException(string message) : base(message) { }
         public MazeCharacterCollisionException() : base() { }
+
+        public MazeCharacterCollisionException(string message) : base(message) { }
     }
 }

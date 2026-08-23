@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Maze.MazeCreation
 {
@@ -26,7 +27,12 @@ namespace Maze.MazeCreation
 
             for(char character = 'A'; character <= 'Z'; character++)
             {
-                elementsReader.Add(character, (row, col, c) => _builder.AddCharacter(row, col, c));
+                elementsReader.Add(character, (row, col, c) => _builder.AddFighter(row, col, c));
+            }
+
+            for(char character = 'm'; character <= 'z'; character++)
+            {
+                elementsReader.Add(character, (row, col, c) => _builder.AddFighter(row, col, c));
             }
         }
 
@@ -40,28 +46,38 @@ namespace Maze.MazeCreation
             {
                 _builder.Start(mazeName);
 
-                int readerCharacter, row = 0, col = 0;
-                char currentCharacter;
+                int row = 0;
+                string? line;
 
-                while((readerCharacter = lecteur.Read()) != -1)
+                Regex myRegex = new Regex(@"^([A-Za-z])\:([0-9]+)\,([0-9]+)\,([0-9]+)$");
+
+                while((line = lecteur.ReadLine()) != null)
                 {
-                    currentCharacter = (char)readerCharacter;
+                    Match match = myRegex.Match(line);
 
-                    if(currentCharacter == '\n')
+                    if (match.Success)
                     {
-                        col = 0;
-                        row++;
+                        char symbol = match.Groups[1].Value[0];
+                        int life = int.Parse(match.Groups[2].Value);
+                        int strength = int.Parse(match.Groups[3].Value);
+                        int defense = int.Parse(match.Groups[4].Value);
+                        _builder.DefineFighter(symbol, life, strength, defense);
                     }
-                    else if(currentCharacter != '\r')
-                    {
-                        if(elementsReader.TryGetValue(currentCharacter, out ElementRead? builderCommand))
+
+                    else
+                    { 
+                        for (int col = 0; col < line.Length; col++)
                         {
-                            builderCommand(row, col, currentCharacter);
+                            char currentCharacter = line[col];
+
+                            if (elementsReader.TryGetValue(currentCharacter, out ElementRead? builderCommand))
+                            {
+                                builderCommand(row, col, currentCharacter);
+                            }
                         }
 
-                        col++;    
+                        row++;
                     }
-
                 }
 
                 _builder.Finish();

@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Maze.MazeCreation.MazeContent;
+using Maze.MazeCreation.MazeContent.Mobs_Characters;
 using Maze.Exceptions;
+using Maze.MazeCreation.MazeContent.Elements;
 
 namespace Maze
 {
@@ -69,11 +70,16 @@ namespace Maze
                 try
                 {
                     value.Visit(this.Personnage);
-                    if(_Grid.TryGetValue(this.Personnage.Position, out IMazeElement originElement))
+                    if (_Grid.TryGetValue(this.Personnage.Position, out IMazeElement originElement))
                     {
                         originElement.Content = null;
                     }
                     this.Personnage.Position = destinationPosition;
+                }
+                catch (MazeMonsterDiedException e)
+                {
+                    _Grid[destinationPosition].Content = null;
+                    throw new MazeMonsterException(e.Message);
                 }
                 catch (OutOfMazeException e)
                 {

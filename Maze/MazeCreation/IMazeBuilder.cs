@@ -12,7 +12,9 @@ namespace Maze.MazeCreation
 
         public void AddWall(int line, int col);
 
-        public void AddCharacter(int line, int col, char c);
+        public void AddFighter(int line, int col, char c);
+
+        public void DefineFighter(char symbol, int life, int strength, int defense);
 
         public void AddDoor(int line, int col);
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Maze.MazeCreation.MazeContent;
+using Maze.MazeCreation.MazeContent.Mobs_Characters;
 
 namespace Maze
 {
@@ -13,7 +14,11 @@ namespace Maze
             int previousLine = 0, previousColumn = 0;
 
             Console.Clear();
-            
+
+            //diplays title
+            Console.WriteLine($"{model.Name}");
+
+            //diplays elements
             foreach(var elem in model)
             {
                 while(elem.Key.Line > previousLine)
@@ -34,7 +39,7 @@ namespace Maze
             Console.WriteLine(message);
             Console.WriteLine();
 
-            //display of the players in the maze, who the current player is, and their inventory
+            //display of the players in the maze, who the current player is, and their stats/inventory
             var enumerator = model.ActivePersonnages;
             string activePerso = "=> ", inactivePerso = "   ", inventory = "";
 
@@ -49,7 +54,7 @@ namespace Maze
                     inventory += bagItem.Name;
                 }
 
-                Console.WriteLine($"{(item == model.Personnage ? activePerso : inactivePerso)} {item.Symbol} :{{ {inventory} }}");
+                Console.WriteLine($"{(item == model.Personnage ? activePerso : inactivePerso)} {item.Symbol} :{{ vie: {item.Life}, force: {item.Strength}, défense: {item.Defense}, inventaire [{inventory}] }}");
             }
         }
     }

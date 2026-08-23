@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Maze.Exceptions;
 
-namespace Maze.MazeCreation.MazeContent
+namespace Maze.MazeCreation.MazeContent.Mobs_Characters
 {
-    internal class Personnage : IMazeObject
+    internal class Personnage : Combattants
     {
-        public char Symbol { private init; get; }
-
-        public string Name { get; private init; }
-        public MazePosition? Position { set; get; }
 
         public ICollection<IMazeObject> Bag;
 
@@ -21,7 +17,7 @@ namespace Maze.MazeCreation.MazeContent
             Bag = new HashSet<IMazeObject>();
         }
 
-        public void Visit(Personnage personnage)
+        public override void Visit(Personnage personnage)
         {
             foreach (IMazeObject obj in personnage.Bag)
             {

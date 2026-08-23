@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Maze.MazeCreation.MazeContent.Mobs_Characters;
 
-namespace Maze.MazeCreation.MazeContent
+namespace Maze.MazeCreation.MazeContent.Elements
 {
     internal class Room : IMazeElement
     {
@@ -39,13 +40,10 @@ namespace Maze.MazeCreation.MazeContent
         public void Visit(Personnage personnage)
         {
             if(Content is not null)
-            {
-
+            { 
                 Content.Visit(personnage);
             }
             Content = personnage;
-
-
         }
     }
 }
