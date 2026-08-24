@@ -17,27 +17,30 @@ namespace Maze.MazeCreation
 
         public void AddRoom(int line, int col)
         {
-            model[line, col] = new Room();
+            model[new MazePosition(line, col)] = new Room();
         }
 
         public void AddWall(int line, int col)
         {
-            model[line, col] = new Wall();
+            model[new MazePosition(line, col)] = new Wall();
         }
 
         public void AddDoor(int line, int col)
         {
-            model[line, col] = new Door();
+            model[new MazePosition(line, col)] = new Door();
         }
 
         public void AddFighter(int line, int col, char c)
         {
-            if(_temporaryFighterHolder is not null && _temporaryFighterHolder.TryGetValue(c, out Combattants fighter))
+            MazePosition pos = new MazePosition(line, col);
+
+
+            if (_temporaryFighterHolder is not null && _temporaryFighterHolder.TryGetValue(c, out Combattants fighter))
             {
-                model[line, col] = new Room(fighter);
+                model[pos] = new Room(fighter);
             }
 
-            ((Combattants)model[line, col].Content).Position = new MazePosition(line, col);
+            ((Combattants)model[pos].Content).Position = pos;
         }
 
         public void DefineFighter(char symbol, int life, int strength, int defense)
@@ -53,20 +56,20 @@ namespace Maze.MazeCreation
 
         public void AddKey(int line, int col)
         {
-            model[line, col] = new Room(new MazeKey());
+            model[new MazePosition(line, col)] = new Room(new MazeKey());
         }
 
         public void AddHealPotion(int line, int col)
         {
-            model[line, col] = new Room(new HealPotion());
+            model[new MazePosition(line, col)] = new Room(new HealPotion());
         }
         public void AddStrengthPotion(int line, int col)
         {
-            model[line, col] = new Room(new StrengthPotion());
+            model[new MazePosition(line, col)] = new Room(new StrengthPotion());
         }
         public void AddDefensePotion(int line, int col)
         {
-            model[line, col] = new Room(new DefensePotion());
+            model[new MazePosition(line, col)] = new Room(new DefensePotion());
         }
 
         public void Finish()

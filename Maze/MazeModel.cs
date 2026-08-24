@@ -34,11 +34,11 @@ namespace Maze
         /*
          * INDEXEUR
          */
-        public IMazeElement this[int line, int col]
+        public IMazeElement this[MazePosition pos]
         {
             set
             {
-                _Grid[new MazePosition(line, col)] = value;
+                _Grid[pos] = value;
                 if (value.Content is Personnage)
                 {
                     if(this.Personnage is null)
@@ -49,7 +49,7 @@ namespace Maze
             }
             get 
             {
-                return _Grid[new MazePosition(line, col)];
+                return _Grid[pos];
             }
         }
 
