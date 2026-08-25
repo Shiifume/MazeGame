@@ -9,7 +9,7 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
     internal class Personnage : Combattants
     {
 
-        public List<IMazeObject> Bag;
+        public OrderedSet<IMazeObject> Bag;
 
         public IMazeObject? ActiveObject { get; set; }
 
@@ -17,23 +17,24 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
         {
             Symbol = symbol;
             Name = symbol.ToString();
-            Bag = new List<IMazeObject>();
+            Bag = new OrderedSet<IMazeObject>();
             ActiveObject = null;
         }
 
         public override void Visit(Personnage personnage)
         {
-            foreach (IMazeObject obj in personnage.Bag)
-            {
-                this.Bag.Add(obj);
-                personnage.Bag.Remove(obj);
-            }
+            this.Bag.AddRange(personnage.Bag);
+            personnage.Bag.Clear();
+
             throw new MazeCharacterCollisionException($"Inventaire transféré de {personnage.Symbol} to {this.Symbol}");
         }
 
         public void ActivateBag()
         {
-            ActiveObject = Bag[0];
+            if (this.Bag.Count() > 0)
+                ActiveObject = Bag[0];
+            else
+                throw new MazeException($"Le sac de {this.Name} est vide.");
         }
 
         public void DeactivateBag()

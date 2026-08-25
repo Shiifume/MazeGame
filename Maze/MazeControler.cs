@@ -30,8 +30,7 @@ namespace Maze
                     switch(key.Key)
                     {
                         case ConsoleKey.Spacebar:
-                            if(Model.Personnage.Bag.Count() > 0)
-                                ExploreBag();
+                            ExploreBag();
                             break;
                         case ConsoleKey.Tab:
                             Model.ActivatePersonnage();

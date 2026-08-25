@@ -5,15 +5,18 @@ using System.Text;
 
 namespace Maze.MazeCreation.MazeContent.Objects
 {
-    internal abstract class Potion : IMazeObject, IUsable
+    internal class Potion : IMazeObject, IUsable
     {
         public string Name { get; }
         public char Symbol { get; }
 
-        public Potion(string name, char symbol)
+        private Action<Personnage> _potionEffect;
+
+        public Potion(string name, char symbol, Action<Personnage> effect)
         {
             Name = name;
             Symbol = symbol;
+            _potionEffect = effect;
         }
 
         public void Visit(Personnage personnage)
@@ -21,36 +24,9 @@ namespace Maze.MazeCreation.MazeContent.Objects
             personnage.Bag.Add(this);
         }
 
-        public abstract void Use(Personnage personnage);
-    }
-
-    internal class HealPotion : Potion 
-    {
-        public HealPotion() : base("potion de soin", '&') { }
-
-        public override void Use(Personnage personnage)
+        public void Use(Personnage personnage)
         {
-            personnage.Life += 5;
-        }
-    }
-
-    internal class StrengthPotion : Potion 
-    {
-        public StrengthPotion() : base("potion de force", '@') { }
-
-        public override void Use(Personnage personnage)
-        {
-            personnage.Strength += 2;
-        }
-    }
-
-    internal class DefensePotion : Potion
-    {
-        public DefensePotion() : base("potion de défense", '+') { }
-
-        public override void Use(Personnage personnage)
-        {
-            personnage.Defense += 2;
+            _potionEffect(personnage);
         }
     }
 }

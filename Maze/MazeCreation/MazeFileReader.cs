@@ -28,7 +28,7 @@ namespace Maze.MazeCreation
                 { '+', (row, col, _) => _builder.AddDefensePotion(row, col)  }
             };
 
-            for(char character = 'A'; character <= 'Z'; character++)
+            for(char character = 'A'; character <= 'F'; character++)
             {
                 elementsReader.Add(character, (row, col, c) => _builder.AddFighter(row, col, c));
             }

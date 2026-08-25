@@ -13,12 +13,11 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
             Name = Symbol.ToString();
         }
 
-
         public override void Visit(Personnage personnage)
         {
             if(this.Strength-personnage.Defense >= personnage.Life)
             {
-                throw new MazePlayerDeadException($"{personnage.Name} est mort en combattant le monstre{this.Name}. La partie est perdue !");
+                throw new MazePlayerDeadException($"{personnage.Name} est mort en combattant le monstre {this.Name}. La partie est perdue !");
             }
             else
             {
@@ -29,11 +28,15 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
                 {
                     int damageReceived = personnage.Strength > this.Defense ? personnage.Strength - this.Defense : 0;
                     this.Life -= damageReceived;
-                    throw new MazeMonsterException($"{personnage.Name} s'est battu contre {this.Name}!\n{personnage.Name} a perdu {damageDealt} pts de vie et a infligé {damageReceived} pts de dégâts");
+
+                    if (damageDealt == 0 && damageReceived == 0)
+                        throw new MazeMonsterException($"{personnage.Name} et le monstre {this.Name} ne s'infligent aucun dégâts !");
+                    else
+                        this.Visit(personnage);
                 }
                 else
                 {
-                    throw new MazeMonsterDiedException($"{personnage.Name} s'est battu contre {this.Name}!\nLe monstre est mort et {personnage.Name} a perdu {damageDealt} pts de vie");
+                    throw new MazeMonsterDiedException($"{personnage.Name} s'est battu contre {this.Name}!\nLe monstre est mort.");
                 }
             }
 

@@ -61,15 +61,15 @@ namespace Maze.MazeCreation
 
         public void AddHealPotion(int line, int col)
         {
-            model[new MazePosition(line, col)] = new Room(new HealPotion());
+            model[new MazePosition(line, col)] = new Room(new Potion("Potion de soin", '&', p => p.Life += 5 ));
         }
         public void AddStrengthPotion(int line, int col)
         {
-            model[new MazePosition(line, col)] = new Room(new StrengthPotion());
+            model[new MazePosition(line, col)] = new Room(new Potion("Potion de force", '@', p => p.Strength += 2));
         }
         public void AddDefensePotion(int line, int col)
         {
-            model[new MazePosition(line, col)] = new Room(new DefensePotion());
+            model[new MazePosition(line, col)] = new Room(new Potion("Potion de défense", '+', p => p.Defense += 2));
         }
 
         public void Finish()
