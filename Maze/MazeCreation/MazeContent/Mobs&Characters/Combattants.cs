@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Maze.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +16,10 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
         public int Strength { set; get;  }
         public int Defense { set; get; }
 
+        public void Use(Personnage personnage)
+        {
+            throw new UnusableObjectException("On ne peut pas consommer une personne...");
+        }
 
         public abstract void Visit(Personnage personnage);
     }

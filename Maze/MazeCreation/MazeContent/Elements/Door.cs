@@ -44,15 +44,16 @@ namespace Maze.MazeCreation.MazeContent.Elements
             }
             else
             {
-                IMazeObject? keyToRemove = null;
+                MazeKey? keyToRemove = personnage.Bag.OfType<MazeKey>().FirstOrDefault();
 
-                foreach (object item in personnage.Bag)
+                /*foreach (object item in personnage.Bag)
                 {
                     if (item is MazeKey && keyToRemove is null)
                     {
                         keyToRemove = (MazeKey)item;
                     }
-                }
+
+                }*/
 
                 if (keyToRemove is not null)
                 {

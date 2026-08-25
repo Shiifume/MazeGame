@@ -91,7 +91,7 @@ namespace Maze
             }
         }
 
-        public void ExploreBag()
+        private void ExploreBag()
         {
             bool running = true;
 
@@ -106,16 +106,16 @@ namespace Maze
                 switch(key.Key)
                 {
                     case ConsoleKey.Enter:
-                        if (Model.Personnage.ActiveObject is IUsable usableObject)
+                        try
                         {
-                            usableObject.Use(Model.Personnage);
+                            Model.Personnage.ActiveObject.Use(Model.Personnage);
                             Model.Personnage.Bag.Remove(Model.Personnage.ActiveObject);
                             running = false;
-                        }
-                        else
+                        } 
+                        catch (UnusableObjectException e)
                         {
                             Model.Personnage.DeactivateBag();
-                            throw new UnusableObjectException("Cet objet ne peut pas être consommé.");
+                            throw e; 
                         }
                         break;
                     case ConsoleKey.Escape:

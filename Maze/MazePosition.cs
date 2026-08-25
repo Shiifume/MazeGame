@@ -59,7 +59,6 @@ namespace Maze
         }
 
 
-
         /*
          * COMPARISON OVERRIDES
          */

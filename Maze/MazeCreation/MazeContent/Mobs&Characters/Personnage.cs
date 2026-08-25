@@ -11,7 +11,7 @@ namespace Maze.MazeCreation.MazeContent.Mobs_Characters
 
         public OrderedSet<IMazeObject> Bag;
 
-        public IMazeObject? ActiveObject { get; set; }
+        public IMazeObject? ActiveObject { get; private set; }
 
         public Personnage(char symbol)
         {

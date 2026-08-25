@@ -8,5 +8,7 @@ namespace Maze.MazeCreation.MazeContent
     internal interface IMazeObject : ISymbol, IVisitablePersonnage
     {
         string Name { get; }
+
+        public void Use(Personnage personnage);
     }
 }

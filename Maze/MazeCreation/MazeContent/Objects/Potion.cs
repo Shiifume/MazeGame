@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Maze.MazeCreation.MazeContent.Objects
 {
-    internal class Potion : IMazeObject, IUsable
+    internal class Potion : IMazeObject
     {
         public string Name { get; }
         public char Symbol { get; }
