@@ -34,7 +34,7 @@ namespace Maze
         /*
          * INDEXEUR
          */
-        public IMazeElement this[MazePosition pos]
+        public IMazeElement? this[MazePosition pos]
         {
             set
             {
@@ -49,7 +49,10 @@ namespace Maze
             }
             get 
             {
-                return _Grid[pos];
+                if (_Grid.TryGetValue(pos, out IMazeElement value))
+                    return value;
+                else
+                    return null;
             }
         }
 

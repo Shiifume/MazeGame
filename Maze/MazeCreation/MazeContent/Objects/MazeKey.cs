@@ -8,7 +8,7 @@ namespace Maze.MazeCreation.MazeContent.Objects
 {
     internal class MazeKey : IMazeObject
     {
-        public char Symbol { get; } = 'f';
+        public char Symbol { get; } = '⚿';
         public string Name { get; } = "clé";
 
         public void Use(Personnage personnage)
